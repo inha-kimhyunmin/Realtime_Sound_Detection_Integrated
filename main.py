@@ -89,8 +89,6 @@ if __name__ == "__main__":
                         print(machine_sound_result)
                     audio_segments = []  # 초기화 또는 슬라이딩 윈도우로 관리
 
-
-
             except queue.Empty:
                 continue
     except KeyboardInterrupt:
