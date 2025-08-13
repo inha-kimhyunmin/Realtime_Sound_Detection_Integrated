@@ -1,0 +1,11 @@
+#danger_detect model
+numpy<2
+sounddevice
+tensorflow
+tensorflow_hub
+scipy
+
+#machine_anomaly_detect model
+torch
+onnxruntime
+torchaudio
