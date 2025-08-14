@@ -25,13 +25,16 @@ class RealtimeSegmentRecorder:
 
     def _audio_callback(self, indata, frames, time, status):
         # indata: shape (frames, channels)
-        self.buffer.extend(indata.copy().reshape(-1))
+        # 프레임 단위(1D array, shape: (channels,))로 append
+        for frame in indata:
+            self.buffer.append(frame.copy())
 
     def _segment_worker(self):
         while self.running:
             if len(self.buffer) >= self.segment_samples:
-                # 세그먼트 추출
+                # 세그먼트 추출 (샘플, 채널)
                 segment = np.array([self.buffer.popleft() for _ in range(self.segment_samples)], dtype=np.float32)
+                # segment.shape == (segment_samples, channels)
                 if self.callback:
                     self.callback(segment)
                 else:
@@ -68,8 +71,9 @@ class RealtimeSegmentRecorder:
 if __name__ == "__main__":
     def print_segment(segment):
         print(f"Segment shape: {segment.shape}, RMS: {np.sqrt(np.mean(segment**2)):.4f}")
+        print(segment, segment[0], segment[1], len(segment[0]), len(segment[1]))
 
-    recorder = RealtimeSegmentRecorder(sample_rate=SAMPLE_RATE, channels=1, segment_duration=SEGMENT_DURATION, callback=print_segment)
+    recorder = RealtimeSegmentRecorder(sample_rate=SAMPLE_RATE, channels= MIC_NUM, segment_duration=SEGMENT_DURATION, callback=print_segment)
     
     try:
         recorder.start()
