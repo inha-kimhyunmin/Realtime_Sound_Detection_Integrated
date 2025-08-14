@@ -83,7 +83,7 @@ def predict_risk(audio, yamnet_model, lstm_model):
     elif len(preds.shape) == 2:  # Dense 출력: (batch, num_classes)
         preds = preds[0]  # (num_classes,)
         
-        print(f"예측 확률:", round(preds[0],2), round(preds[1],2), round(preds[2],2), round(preds[3],2), round(preds[4],2))
+        #print(f"예측 확률:", round(preds[0],2), round(preds[1],2), round(preds[2],2), round(preds[3],2), round(preds[4],2))
         
         overall_max_prob = np.max(preds)
         predicted_class = np.argmax(preds)

@@ -39,7 +39,7 @@ class MicrophoneCalibrator:
             audio, preprocessd_info = preprocess_audio(audio, SAMPLE_RATE)
             rms, max_val = get_audio_volume(audio)
 
-            predicted_class, max_prob, _ , _= predict_risk(audio, yamnet_model, lstm_model)
+            predicted_class, max_prob, frame_predictions , _= predict_risk(audio, yamnet_model, lstm_model)
 
             print("=== 오디오 전처리 정보 ===")
             for k, v in preprocessd_info.items():
@@ -47,6 +47,10 @@ class MicrophoneCalibrator:
                     print(f"{k:>16}: {v:.6f}")
                 else:
                     print(f"{k:>16}: {v}")
+            
+            print("판단 결과")
+            for item in frame_predictions:
+                print(f"{item:.2f}", end = ' ')
             
             if predicted_class == 1:
                 print(f"[Calib] 공장 소리 감지! RMS: {rms:.4f}, AI 예측 : {predicted_class}, 확률 : {max_prob}")

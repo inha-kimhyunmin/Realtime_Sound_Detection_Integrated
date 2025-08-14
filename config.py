@@ -31,6 +31,18 @@ PART_CONFIGS = {
    }
 }
 
+#환경 소리 판단 클래스
+CLASSES = ['Silence', 'Factory', 'Fire', 'Gas_Leak', 'Scream']
+#공장 클래스 번호
+FACTORY_CLASS = CLASSES.index('Factory')
+#공장 소리 판단 임계 확률
+FACTORY_THRESHOLD = 0.6
+#위험 소리 판단 임계 확률
+DANGER_THRESHOLD = 0.7
+#판단할 기계 부품목록(시연시 이중 하나만 입력하면된다.)
 DETECT_PARTS = ['bearing', 'gearbox', 'fan', 'pump', 'slider']
+
+#기계 소리의 일정 비율 이하 소리는 무음처리
 USE_MUTE_BY_FACTORY_SOUND = True 
+#기계 소리의 몇 %보다 작으면 무음이냐?
 FACTORY_SOUND_RATIO = 0.5

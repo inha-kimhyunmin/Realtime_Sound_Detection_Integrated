@@ -66,18 +66,6 @@ def preprocess_audio(audio, sample_rate=16000):
     if original_max > 0.8 or is_clipped:
         audio = apply_compressor(audio, threshold=0.6, ratio=6.0)
     
-    # 3. 적응형 정규화
-    if original_rms > 0.001:  # 무음이 아닌 경우만
-        # 볼륨이 매우 높은 경우 더 보수적으로 정규화
-        if original_rms > 0.3:
-            target_rms = 0.08  # 더 낮은 목표
-            max_gain = 1.5     # 게인 제한
-        else:
-            target_rms = 0.1
-            max_gain = 3.0
-            
-        audio = normalize_audio_adaptive(audio, target_rms, max_gain)
-    
     # 4. 최종 안전장치 (하드 리미터)
     audio = np.clip(audio, -0.95, 0.95)
     
