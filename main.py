@@ -119,7 +119,7 @@ if __name__ == "__main__":
                     #기계 이상 진단 모델 판단
                     if len(audio_segments) == MACHINE_ANOMALY_INPUT_DURATION / SEGMENT_DURATION:  # 원하는 길이(2개)가 되면
                         combined_audio = np.concatenate(audio_segments)
-                        if len(predicted_classes) >= MACHINE_ANOMALY_INPUT_DURATION / SEGMENT_DURATION and len(combined_audio) == int(MACHINE_ANOMALY_INPUT_DURATION * sample_rate): 
+                        if len(predicted_classes) >= MACHINE_ANOMALY_INPUT_DURATION / SEGMENT_DURATION and len(combined_audio) == int(MACHINE_ANOMALY_INPUT_DURATION * SAMPLE_RATE): 
                             #5초 판단 2개가 전부 공장 소리이고, 오디오 길이가 원하는 길이가 되면
                             machine_sound_result = run_inference_all(combined_audio, DETECT_PARTS[mic_num])
                             machine_anomaly_detect_output(machine_sound_result)
