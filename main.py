@@ -98,6 +98,10 @@ if __name__ == "__main__":
                         if rms >= silence_level and rms >= factory_sound_level * FACTORY_SOUND_RATIO:
                             predicted_class, overall_max_prob, frame_predictions, _ = predict_risk(single_audio, yamnet_model, lstm_model)
                             danger_detect_output(predicted_class, overall_max_prob, frame_predictions)
+                            if predicted_class == FACTORY_CLASS and overall_max_prob <= FACTORY_THRESHOLD:
+                                predicted_class = 0
+                            elif predicted_class > FACTORY_CLASS and overall_max_prob <= DANGER_THRESHOLD:
+                                predicted_class = 0
                         else:
                             print(f"임계값({max(factory_sound_level*FACTORY_SOUND_RATIO, silence_level):.4f})보다 소리가 작아 무음으로 처리")
                             predicted_class = 0
@@ -105,6 +109,10 @@ if __name__ == "__main__":
                         if rms >= silence_level:
                             predicted_class, overall_max_prob, frame_predictions, max_frame_idx = predict_risk(single_audio, yamnet_model, lstm_model)
                             danger_detect_output(predicted_class, overall_max_prob, frame_predictions)
+                            if predicted_class == FACTORY_CLASS and overall_max_prob <= FACTORY_THRESHOLD:
+                                predicted_class = 0
+                            elif predicted_class > FACTORY_CLASS and overall_max_prob <= DANGER_THRESHOLD:
+                                predicted_class = 0
                         else:
                             print(f"임계값({silence_level:.4f})보다 소리가 작아 무음으로 처리")
                             predicted_class = 0
