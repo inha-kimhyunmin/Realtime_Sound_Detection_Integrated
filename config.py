@@ -12,7 +12,7 @@ MACHINE_ANOMALY_INPUT_DURATION = 10
 PART_CONFIGS = {
    'bearing': {
        'model_path': 'model/Machine_anomaly_detect/bearing.onnx',
-       'threshold': 0.090
+       'threshold': 0.03
    },
    'fan': {
        'model_path': 'model/Machine_anomaly_detect/fan.onnx',
@@ -41,7 +41,7 @@ FACTORY_THRESHOLD = 0.6
 #위험 소리 판단 임계 확률
 DANGER_THRESHOLD = 0.7
 #판단할 기계 부품목록(시연시 이중 하나만 입력하면된다.) 각 채널별로 몇 개 만들것인가
-DETECT_PARTS = [['bearing', 'gearbox', 'fan', 'pump', 'slider']
+DETECT_PARTS = [['bearing']
                ]
 
 #기계 소리의 일정 비율 이하 소리는 무음처리
